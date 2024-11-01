@@ -1,25 +1,29 @@
-/**
- * Products Router
- */
-
 const express = require('express');
+const controller = require('../../controllers/product/controller.js');
+const middleware = require('../../utils/middleware.js');
 const { Router } = express;
 
 const router = Router();
 
-router.get('/products',);      // /api/product/products
-router.get('/:id');           // /api/product/:id
+// Get products..
+router.get('/products', controller.getProducts);
 
-// Add a product
-router.post('/add-product', ) // /api/product/add-product
+// Get product by id..
+router.get('/:id', controller.getProduct);
 
-// Update a product
-router.put('/update-product/:id',); // /api/product/update-product/:id
+// Using middleware..
+router.use(middleware.mustBeLoggedIn);
 
-// Delete a product
-router.delete('/delete-product/:id')  // /api/product/delete-product/:id
+// Add product..
+router.post('/add', controller.addProduct);
 
-// Buy a product
-router.put('/buy/:id');  //  /api/product/buy/:id
+// Update product..
+router.put('/update/:id', controller.updateProduct);
+
+// Delete product..
+router.delete('/delete/:id', controller.deleteProduct);
+
+// Buy product..
+router.put('/buy', controller.buyProducts);
 
 module.exports = router;
